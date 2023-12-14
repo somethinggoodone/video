@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    // Function to extract video ID from the URL parameter
+    function getVideoIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoUrl = urlParams.get('url');
+        
+        // Extract video ID from the provided URL
+        const match = videoUrl.match(/\/d\/(.+?)\/view/);
+        return match ? match[1] : null;
+    }
+
+    // Function to set the video source and play it
+    function playVideo() {
+        const videoId = getVideoIdFromUrl();
+
+        if (videoId) {
+            const videoElement = document.createElement('video');
+            videoElement.setAttribute('controls', '');
+            videoElement.innerHTML = `
+                <source src="https://drive.google.com/uc?export=download&id=${videoId}" type="video/webm">
+                Your browser does not support HTML video.
+            `;
+            
+            document.body.appendChild(videoElement);
+
+            // Play the video in full screen
+            videoElement.play().then(() => {
+                if (videoElement.requestFullscreen) {
+                    videoElement.requestFullscreen();
+                } else if (videoElement.mozRequestFullScreen) { /* Firefox */
+                    videoElement.mozRequestFullScreen();
+                } else if (videoElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    videoElement.webkitRequestFullscreen();
+                }
+            });
+        } else {
+            alert('Invalid video URL');
+        }
+    }
+
+    // Call the playVideo function when the page loads
+    window.onload = playVideo;
+</script>
+
+</body>
+</html>
