@@ -34,7 +34,6 @@
         if (videoId) {
             const videoElement = document.createElement('video');
             videoElement.setAttribute('controls', '');
-            videoElement.setAttribute('autoplay', '');
             videoElement.setAttribute('poster', 'loading.gif');
             videoElement.innerHTML = `
                 <source src="https://drive.google.com/uc?export=download&id=${videoId}" type="video/webm">
