@@ -23,11 +23,8 @@
     // Function to extract video ID from the URL parameter
     function getVideoIdFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
-        const videoUrl = urlParams.get('url');
-        
-        // Extract video ID from the provided URL
-        const match = videoUrl.match(/\/d\/(.+?)\/view/);
-        return match ? match[1] : null;
+        const videoId = urlParams.get('id');
+        return videoId : null;
     }
 
     // Function to set the video source and play it
